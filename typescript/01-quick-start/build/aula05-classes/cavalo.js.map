@@ -1,0 +1,1 @@
+{"version":3,"file":"cavalo.js","sourceRoot":"","sources":["../../aula05-classes/cavalo.ts"],"names":[],"mappings":";;;;;;;;;;;;AACA,mCAAkC;AAElC;IAAqB,0BAAM;IAEvB,gBAAY,IAAY;eACpB,kBAAM,IAAI,CAAC;IACf,CAAC;IAGM,sBAAK,GAAZ,UAAa,iBAAyB;QAClC,OAAO,CAAC,GAAG,CAAC,cAAc,CAAC,CAAC;QAC5B,iBAAM,KAAK,YAAC,iBAAiB,CAAC,CAAC;IACnC,CAAC;IAEL,aAAC;AAAD,CAAC,AAZD,CAAqB,eAAM,GAY1B;AAEQ,wBAAM"}
