@@ -1,3 +1,4 @@
+import { ContatoService } from './contato.service';
 import { ContatoRoutingModule } from './contato-routing.module';
 import { ContatosListaComponent } from './contatos-lista.component';
 import { CommonModule } from '@angular/common';
@@ -16,6 +17,9 @@ import { ContatoDetailComponent } from './contato-detail.component';
     ],
     exports: [
         ContatosListaComponent
+    ],
+    providers: [
+        ContatoService
     ]
 })
 export class ContatosModule {}

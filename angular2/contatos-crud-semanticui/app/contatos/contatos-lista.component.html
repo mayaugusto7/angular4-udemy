@@ -1,5 +1,7 @@
 <div class="ui container">
 
+    <a class="ui primary basic button"  routerLink="/contato/save">Novo</a>
+
     <table class="ui celled striped table">
         <thead>
           <tr>
@@ -12,7 +14,7 @@
     <tbody>
           <tr *ngFor="let contato of contatos" >
             <td>
-                <button class="ui teal basic button">EDITAR</button>
+                <button class="ui teal basic button" [routerLink]="['/contato/save', contato.id]">EDITAR</button>
                 <button class="ui red basic button">DELETAR</button>
             </td>
             <td>{{contato.nome}}</td>
