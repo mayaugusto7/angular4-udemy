@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+const forms_1 = require("@angular/forms");
 const contato_service_1 = require("./contato.service");
 const contato_detail_component_1 = require("./contato-detail.component");
 const common_1 = require("@angular/common");
@@ -21,7 +22,8 @@ ContatosModule = __decorate([
     core_1.NgModule({
         imports: [
             common_1.CommonModule,
-            contato_routing_module_1.ContatoRountingModule
+            contato_routing_module_1.ContatoRountingModule,
+            forms_1.FormsModule
         ],
         declarations: [
             contatos_lista_component_1.ContatosListaComponent,

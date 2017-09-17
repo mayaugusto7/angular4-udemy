@@ -1,25 +1,48 @@
 <div class="container">
 
+    <!--[value]="contato.email" property binding igual a interpolacao {{}}, one way databinding -->
+    <!-- Two way databinding [ngModel]="property" necessario importar o Form Module para trabalhar com forms-->
+    <!--  Property binding[x]  pega um valor da classe e joga para o html ex: [ngModel]="contato.nome"
+          Event binding (xChange) pega um valor do html e joga para a classe ex: (nbModelChange)="contato.nome = $event"
+          Two-way data-binding [(x)] , property binding e event binding juntos ex:    [(ngModel)]="contato.nome" -->
+
     <h2>Salvar contato</h2>
 
     <form>
 
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" placeholder="Digite o nome">
+            <input  type="text" 
+                    class="form-control" 
+                    placeholder="Digite o nome" 
+                    name="nome" 
+                    [(ngModel)]="contato.nome"
+                    >
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" placeholder="Digite o email">
+            <input  type="email" 
+                    class="form-control" 
+                    name="email" 
+                    placeholder="Digite o email" 
+                    [(ngModel)]="contato.email">
         </div>
 
         <div class="form-group">
             <label for="telefone">Telefone</label>
-            <input type="text" class="form-control" placeholder="Digite o telefone">
+            <input  type="text" 
+                    class="form-control"
+                    name="telefone" 
+                    placeholder="Digite o telefone"
+                    [(ngModel)]="contato.telefone"
+                    >
         </div>
 
         <button type="submit" class="btn btn-success">Salvar</button>
         <a class="btn btn-secondary" routerLink="/" >Voltar</a>
     </form>
+
+    <button (click)="teste()" type="submit" class="btn btn-warning">Log</button>
+    
 </div>

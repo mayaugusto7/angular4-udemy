@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+const contato_model_1 = require("./contato.model");
 const contato_service_1 = require("./contato.service");
 const core_1 = require("@angular/core");
 //Usuados para extrair os parametros das rotas
@@ -25,14 +26,20 @@ let ContatoDetailComponent = class ContatoDetailComponent {
      *     path: 'contato/save/:id',
      */
     ngOnInit() {
-        console.log('On init');
+        this.contato = new contato_model_1.Contato(0, '', '', '');
         this.route.params.forEach((params) => {
             let id = +params['id'];
             console.log(id);
-            this.contatoService.getContato(id).then((contato) => {
-                console.log(contato);
-            });
+            if (id) {
+                this.contatoService.getContato(id).then((contato) => {
+                    //console.log(contato);
+                    this.contato = contato;
+                });
+            }
         });
+    }
+    teste() {
+        console.log(this.contato);
     }
 };
 ContatoDetailComponent = __decorate([
