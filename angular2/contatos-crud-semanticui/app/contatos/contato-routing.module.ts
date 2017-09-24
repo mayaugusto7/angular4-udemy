@@ -18,7 +18,6 @@ const contatoRoutes: Routes = [
         component: ContatoDetailComponent
     }
 
-
 ]
 
 

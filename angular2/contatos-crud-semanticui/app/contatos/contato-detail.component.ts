@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { selector } from 'rxjs/operator/publish';
 import { Component, OnInit } from '@angular/core';
 import { ContatoService } from './contato.service';
+import { Contato } from './contato.model';
 
 
 @Component({
@@ -12,23 +13,29 @@ import { ContatoService } from './contato.service';
 })
 export class ContatoDetailComponent implements OnInit { 
 
+    contato: Contato;
+    
     constructor(private contatoService: ContatoService,
                 private route: ActivatedRoute,
                 private location: Location
             ) {}
 
 
-
     public ngOnInit(): void {
-        console.log('On init');
+
+        this.contato = new Contato(0, '', '', '');
         
         this.route.params.forEach((params: Params) => {
             let id: number = +params['id'];
             console.log(id);
 
-            this.contatoService.getContato(id).then((contato) => {
-                console.log(contato);
-            });
+            if (id) {
+         
+                this.contatoService.getContato(id).then((contato) => {
+                    this.contato = contato;          
+                });
+            }
+         
         });
 
     }
