@@ -2,7 +2,7 @@
 
     <h2>Salvar contato</h2>
 
-    <form class="ui form">
+    <form (ngSubmit)="onSubmit()" #contatoForm="ngForm" class="ui form" novalidate>
 
         <div class="field">
             <label for="nome">Nome</label>
@@ -10,7 +10,13 @@
                     placeholder="Digite o nome" 
                     name="nome" 
                     [(ngModel)]="contato.nome"
-            >
+                    #nome="ngModel"
+                    required
+                    >
+
+                <div class="ui success message">
+                      <div class="header">Form Completed</div>
+                </div>
         </div>
 
         <div class="field">
@@ -19,6 +25,8 @@
                     placeholder="Digite o email"
                     name="email"
                     [(ngModel)]="contato.email"
+                    #email="ngModel"
+                    required
                     >
         </div>
 
@@ -27,13 +35,16 @@
            <input   type="text" 
                     name="telefone"
                     [(ngModel)]="contato.telefone"
-                    placeholder="Digite o telefone">
+                    placeholder="Digite o telefone"
+                    #telefone="ngModel"
+                    required
+                    >
         </div>
 
         <div class="ui buttons">
           <a class="ui button" routerLink="/">Voltar</a>
           <div class="or"></div>
-          <button class="ui positive button">Salvar</button>
+          <button class="ui positive button" [disabled]="!contatoForm.form.valid">Salvar</button>
         </div>
     </form>
 

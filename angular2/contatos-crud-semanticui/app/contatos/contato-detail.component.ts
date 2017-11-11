@@ -14,7 +14,8 @@ import { Contato } from './contato.model';
 export class ContatoDetailComponent implements OnInit { 
 
     contato: Contato;
-    
+    private isNew: boolean = true;
+
     constructor(private contatoService: ContatoService,
                 private route: ActivatedRoute,
                 private location: Location
@@ -30,6 +31,8 @@ export class ContatoDetailComponent implements OnInit {
             console.log(id);
 
             if (id) {
+
+                this.isNew = false;
          
                 this.contatoService.getContato(id).then((contato) => {
                     this.contato = contato;          
@@ -39,4 +42,41 @@ export class ContatoDetailComponent implements OnInit {
         });
 
     }
+
+    getFormGroupClass(isValid: boolean, isPristine: boolean):any {
+
+        let validator = {
+            'field': true,
+            'ui error message': !isValid && !isPristine,
+            'ui success message': isValid && !isPristine
+        };
+    
+        //console.log(validator);
+
+        return validator;
+    } 
+        
+    getFormControlClass(isValid: boolean, isPristine: boolean):any {
+        
+        let validator = {
+            'form-control': true,
+            'form-control-danger': !isValid && !isPristine,
+            'form-control-success': isValid && !isPristine
+        };
+
+        //console.log(validator);
+
+        return validator;
+    } 
+
+    onSubmint(): void {
+
+        if (this.isNew) {
+
+        } else {
+            
+        }
+
+    }
+        
 }
