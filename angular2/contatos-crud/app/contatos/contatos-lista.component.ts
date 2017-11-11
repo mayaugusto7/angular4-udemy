@@ -1,3 +1,4 @@
+import { DialogService } from './../dialog.service';
 import { Contato } from './contato.model';
 import { selector } from 'rxjs/operator/publish';
 import { Component, OnInit } from '@angular/core';
@@ -20,17 +21,37 @@ export class ContatosListaComponent implements OnInit {
 
     /**
      * Injetar servico pelo contrustor boa pratica
-     * Nao insstaciar o servico, quebra a injecao de depencia do angular
+     * Nao instanciar o servico, quebra a injecao de depencia do angular
      * @param contatoService 
      */
-    constructor(private contatoService: ContatoService) {}
+    constructor(private contatoService: ContatoService,
+                private dialogServce: DialogService) {}
 
     public ngOnInit(): void {
         this.contatoService.getContatos()
         .then((contatos: Contato[]) => {
             this.contatos = contatos;
         }).catch(err => {
-            console.log(err);
+            console.log('Aconteceu um erro: ', err);
         });
+    }
+
+    onDelete(contato: Contato): void {
+
+        this.dialogServce.confirm('Deseja deletar o contato ' + contato.nome + '?')
+            .then((canDelete: boolean) => {
+
+                if (canDelete) {
+                    this.contatoService
+                        .delete(contato)
+                        .then(() => {
+                            this.contatos = this.contatos.filter((c: Contato) => c.id != contato.id);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                }
+
+            })
+        console.log(contato);
     }
 }

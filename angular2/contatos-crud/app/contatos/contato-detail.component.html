@@ -1,48 +1,97 @@
-<div class="container">
+
 
     <!--[value]="contato.email" property binding igual a interpolacao {{}}, one way databinding -->
     <!-- Two way databinding [ngModel]="property" necessario importar o Form Module para trabalhar com forms-->
     <!--  Property binding[x]  pega um valor da classe e joga para o html ex: [ngModel]="contato.nome"
-          Event binding (xChange) pega um valor do html e joga para a classe ex: (nbModelChange)="contato.nome = $event"
+          Event binding (xChange) pega um valor do html e joga para a classe ex: (ngModelChange)="contato.nome = $event"
           Two-way data-binding [(x)] , property binding e event binding juntos ex:    [(ngModel)]="contato.nome" -->
+
+    <!-- Definindo uma variavel no angular2 ou 4 #contatoForm, nesse ponto o angular esta atribuindo o elemento
+         form a variavel #contatoForm-->
+
+    <!-- NgForm é um controller do angular2 ou 4 posso usar a variavel receber esse controller
+        ex: #contatoForm="ngForm"
+
+        contatoForm.form.valid valida se o formulario foi preenchido sempre retorna true entao temos que nega-lo
+
+        para declarar um campo como obrigatorio usamos a propriedade required no elemento input-->
+
+    <!-- NgModel alem do two-way databinding, alteracoes do elemento, verificar valores validos e invalidos, pode alterar o css 
+    
+        classes  css utilizadas, para mudar o estado no campo
+        https://angular.io/guide/forms
+
+        ngModel é um controller podemos atribui-lo a uma variavel,   #nome="ngModel"
+
+        [hidden] esconder mensagem do form
+    -->
+
+    <!--[ngClass] property binding para utilizarmos expressoes javascript 
+        
+        Usada quando queremos trabalhar com mais de uma classe css
+    
+    -->
+
+        <!-- <br>
+                         #spy
+                   <div class="alert alert-info"> {{ spy.className }} </div> -->
+
+                    <!-- <div class="form-group has-danger" [ngClass]="{ 
+            'form-group': true, 
+            'has-danger': (!nome.valid && !nome.pristine), 
+            'has-success': (nome.valid && !nome.pristine)}">
+         -->
+
+<div class="container">
 
     <h2>Salvar contato</h2>
 
-    <form>
+    <form (ngSubmit)="onSubmit()" #contatoForm="ngForm" novalidate>
 
-        <div class="form-group">
-            <label for="nome">Nome</label>
+         <div class="form-group has-success" [ngClass]="getFormGroupClass(nome.valid, nome.pristine)">
+            <label for="nome" class="form-control-label">Nome</label>
             <input  type="text" 
-                    class="form-control" 
+                    class="form-control form-control-success" 
+                    [ngClass]="getFormControlClass(nome.valid, nome.pristine)"
                     placeholder="Digite o nome" 
-                    name="nome" 
+                    name="nome"
+                    required 
                     [(ngModel)]="contato.nome"
+                    #nome="ngModel"
                     >
+                   <div class="form-control-feedback" [hidden]="nome.valid || nome.pristine">O campo nome é obrigatório!</div>
         </div>
 
-        <div class="form-group">
+        <div [ngClass]="getFormGroupClass(email.valid, email.pristine)">
             <label for="email">Email</label>
             <input  type="email" 
-                    class="form-control" 
+                    [ngClass]="getFormControlClass(email.valid, email.pristine)"
                     name="email" 
+                    #email="ngModel"
+                    required
                     placeholder="Digite o email" 
-                    [(ngModel)]="contato.email">
+                    [(ngModel)]="contato.email"
+                    >
+                    <div class="form-control-feedback" [hidden]="email.valid || email.pristine">O campo email é obrigatório!</div>
         </div>
 
-        <div class="form-group">
+        <div [ngClass]="getFormGroupClass(telefone.valid, telefone.pristine)">
             <label for="telefone">Telefone</label>
             <input  type="text" 
-                    class="form-control"
+                    [ngClass]="getFormControlClass(telefone.valid, telefone.pristine)"
                     name="telefone" 
+                    #telefone="ngModel"
+                    required
                     placeholder="Digite o telefone"
                     [(ngModel)]="contato.telefone"
                     >
+                    <div class="form-control-feedback" [hidden]="telefone.valid || telefone.pristine">O campo telefone é obrigatório!</div>
         </div>
 
-        <button type="submit" class="btn btn-success">Salvar</button>
+        <button type="submit" class="btn btn-success" [disabled]="!contatoForm.form.valid" >Salvar</button>
         <a class="btn btn-secondary" routerLink="/" >Voltar</a>
     </form>
 
-    <button (click)="teste()" type="submit" class="btn btn-warning">Log</button>
+    <!-- <button (click)="teste()" type="submit" class="btn btn-warning">Log</button> -->
     
 </div>

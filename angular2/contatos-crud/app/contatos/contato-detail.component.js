@@ -14,11 +14,14 @@ const core_1 = require("@angular/core");
 //Usuados para extrair os parametros das rotas
 const router_1 = require("@angular/router");
 const common_1 = require("@angular/common");
+//.ng-valid[required] quando queremos aplicar ao compo passamos o parametro required
+//.ng-valid e aplicado a todo formulario
 let ContatoDetailComponent = class ContatoDetailComponent {
     constructor(contatoService, route, location) {
         this.contatoService = contatoService;
         this.route = route;
         this.location = location;
+        this.isNew = true;
     }
     /**
      * sinal de + converte uma string para numero
@@ -31,6 +34,7 @@ let ContatoDetailComponent = class ContatoDetailComponent {
             let id = +params['id'];
             console.log(id);
             if (id) {
+                this.isNew = false;
                 this.contatoService.getContato(id).then((contato) => {
                     //console.log(contato);
                     this.contato = contato;
@@ -38,8 +42,35 @@ let ContatoDetailComponent = class ContatoDetailComponent {
             }
         });
     }
-    teste() {
-        console.log(this.contato);
+    getFormGroupClass(isValid, isPristine) {
+        let validator = {
+            'form-group': true,
+            'has-danger': !isValid && !isPristine,
+            'has-success': isValid && !isPristine
+        };
+        //console.log(validator);
+        return validator;
+    }
+    getFormControlClass(isValid, isPristine) {
+        let validator = {
+            'form-control': true,
+            'form-control-danger': !isValid && !isPristine,
+            'form-control-success': isValid && !isPristine
+        };
+        //console.log(validator);
+        return validator;
+    }
+    onSubmit() {
+        let promise;
+        if (this.isNew) {
+            console.log('Novo contato');
+            promise = this.contatoService.create(this.contato);
+        }
+        else {
+            console.log('Alterar contato');
+            promise = this.contatoService.update(this.contato);
+        }
+        promise.then(contato => this.location.back());
     }
 };
 ContatoDetailComponent = __decorate([
