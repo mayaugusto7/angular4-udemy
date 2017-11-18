@@ -55,7 +55,7 @@ export class ContatoService {
                         .toPromise()
                         .then((response: Response) => response.json().data as Contato)
                         .catch(this.handleError);
-    }
+    }    
 
     update(contato: Contato): Promise<Contato> {
 
