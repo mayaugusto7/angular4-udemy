@@ -1,5 +1,16 @@
 <div class="ui container">
 
+    <div [ngClass]="classesCss"  class="alert alert-success" role="alert" *ngIf="mensagem">
+        <span [ngSwitch]="mensagem.tipo" >
+            <strong *ngSwitchCase="'danger'">Erro!</strong>
+            <strong *ngSwitchCase="'warning'">Atenção!</strong>
+            <strong *ngSwitchCase="'success'">Sucesso!!</strong>
+            <strong *ngSwitchDefault>Informação!</strong>
+        </span>
+        {{ mensagem.texto}}
+    </div>
+
+
     <a class="ui primary basic button"  routerLink="/contato/save">Novo</a>
 
     <table class="ui celled striped table">
@@ -15,14 +26,12 @@
           <tr *ngFor="let contato of contatos" >
             <td>
                 <button class="ui teal basic button" [routerLink]="['/contato/save', contato.id]">EDITAR</button>
-                <button class="ui red basic button">DELETAR</button>
+                <button class="ui red basic button" (click)="onDelete(contato); $event.stopPropagation();" >DELETAR</button>
             </td>
             <td>{{contato.nome}}</td>
-            <!-- <td class="ui ribbon label">{{contato.nome}}</td> -->
             <td>{{contato.email}}</td>
             <td>{{contato.telefone}}</td>
-            <!-- <td><button class="ui red button">DELETAR</button></td> -->
-        </tr>
+          </tr>
         </tbody>
         <tfoot>
           <tr><th colspan="3">

@@ -79,12 +79,10 @@ export class ContatoService {
                 
     }
     
-
     private handleError(err: any): Promise<any> {
         return Promise.reject(err.message || err);
     }
     
-
     getContatosSlowly(): Promise<Contato[]> {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, 3000);

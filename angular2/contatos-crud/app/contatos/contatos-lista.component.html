@@ -6,6 +6,16 @@
 
             <h2>Meus contatos</h2>
 
+            <div [ngClass]="classesCss"  class="alert alert-success" role="alert" *ngIf="mensagem">
+                <span [ngSwitch]="mensagem.tipo" >
+                    <strong *ngSwitchCase="'danger'">Erro!</strong>
+                    <strong *ngSwitchCase="'warning'">Atenção!</strong>
+                    <strong *ngSwitchCase="'success'">Sucesso!!</strong>
+                    <strong *ngSwitchDefault>Informação!</strong>
+                </span>
+                {{ mensagem.texto}}
+            </div>
+
             <a class="btn btn-success" routerLink="/contato/save">Novo</a>
 
             <br/>

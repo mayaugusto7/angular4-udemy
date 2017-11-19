@@ -23,9 +23,9 @@ export class ContatoDetailComponent implements OnInit {
 
 
     public ngOnInit(): void {
-
-        this.contato = new Contato(0, '', '', '');
         
+        this.contato = new Contato(0, '', '', '');
+
         this.route.params.forEach((params: Params) => {
             let id: number = +params['id'];
             console.log(id);
@@ -33,16 +33,15 @@ export class ContatoDetailComponent implements OnInit {
             if (id) {
 
                 this.isNew = false;
-         
+
                 this.contatoService.getContato(id).then((contato) => {
-                    this.contato = contato;          
+                    //console.log(contato);
+                    this.contato = contato;
                 });
             }
-         
         });
-
     }
-
+            
     getFormGroupClass(isValid: boolean, isPristine: boolean):any {
 
         let validator = {
@@ -71,12 +70,18 @@ export class ContatoDetailComponent implements OnInit {
 
     onSubmint(): void {
 
-        if (this.isNew) {
+        let promise;
 
+        if (this.isNew) {
+            console.log('Novo contato');
+            promise = this.contatoService.create(this.contato);
         } else {
-            
+            console.log('Alterar contato');
+            promise = this.contatoService.update(this.contato);
         }
 
+        
+        promise.then(contato => this.location.back());
     }
         
 }

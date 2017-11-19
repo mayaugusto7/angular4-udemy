@@ -10,6 +10,10 @@ const platform_browser_1 = require("@angular/platform-browser");
 const core_1 = require("@angular/core");
 const app_component_1 = require("./app.component");
 const app_routing_module_1 = require("./app-routing.module");
+const http_1 = require("@angular/http");
+const angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
+const in_memory_data_service_1 = require("./in-memory-data.service");
+const dialog_service_1 = require("./dialog.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -17,13 +21,18 @@ AppModule = __decorate([
         imports: [
             app_routing_module_1.AppRoutingModule,
             platform_browser_1.BrowserModule,
-            contatos_module_1.ContatosModule
+            contatos_module_1.ContatosModule,
+            http_1.HttpModule,
+            angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService)
         ],
         declarations: [
             app_component_1.AppComponent
         ],
         bootstrap: [
             app_component_1.AppComponent
+        ],
+        providers: [
+            dialog_service_1.DialogService
         ]
     })
 ], AppModule);
